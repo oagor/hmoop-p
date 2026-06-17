@@ -5,6 +5,13 @@ import org.junit.jupiter.api.Test;
 
 class RadioTest {
     @Test
+    void shouldUseDefaultStationCount() {
+        Radio radio = new Radio();
+        radio.setCurrentStation(9);
+        Assertions.assertEquals(9, radio.getCurrentStation());
+    }
+
+    @Test
     void shouldSetStationInRange() {
         Radio radio = new Radio();
         radio.setCurrentStation(5);
@@ -34,7 +41,7 @@ class RadioTest {
     }
 
     @Test
-    void shouldNextFromNineToZero() {
+    void shouldNextFromLastToZero() {
         Radio radio = new Radio();
         radio.setCurrentStation(9);
         radio.next();
@@ -50,11 +57,27 @@ class RadioTest {
     }
 
     @Test
-    void shouldPrevFromZeroToNine() {
+    void shouldPrevFromZeroToLast() {
         Radio radio = new Radio();
         radio.setCurrentStation(0);
         radio.prev();
         Assertions.assertEquals(9, radio.getCurrentStation());
+    }
+
+    @Test
+    void shouldWorkWithCustomStationCount() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(29);
+        radio.next();
+        Assertions.assertEquals(0, radio.getCurrentStation());
+    }
+
+    @Test
+    void shouldPrevFromZeroToCustomLast() {
+        Radio radio = new Radio(30);
+        radio.setCurrentStation(0);
+        radio.prev();
+        Assertions.assertEquals(29, radio.getCurrentStation());
     }
 
     @Test
