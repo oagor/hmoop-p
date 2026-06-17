@@ -1,21 +1,30 @@
 package org.example;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Radio {
     private int currentStation;
     private int currentVolume;
+    private int stationsCount = 10;
 
-    public int getCurrentStation() {
-        return currentStation;
+    public Radio() {
+    }
+
+    public Radio(int stationsCount) {
+        this.stationsCount = stationsCount;
     }
 
     public void setCurrentStation(int currentStation) {
-        if (currentStation >= 0 && currentStation <= 9) {
+        if (currentStation >= 0 && currentStation < stationsCount) {
             this.currentStation = currentStation;
         }
     }
 
     public void next() {
-        if (currentStation < 9) {
+        if (currentStation < stationsCount - 1) {
             currentStation++;
         } else {
             currentStation = 0;
@@ -26,12 +35,8 @@ public class Radio {
         if (currentStation > 0) {
             currentStation--;
         } else {
-            currentStation = 9;
+            currentStation = stationsCount - 1;
         }
-    }
-
-    public int getCurrentVolume() {
-        return currentVolume;
     }
 
     public void setCurrentVolume(int currentVolume) {
